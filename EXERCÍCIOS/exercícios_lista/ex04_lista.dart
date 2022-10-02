@@ -1,7 +1,7 @@
 void main() {
   final n = 3;
 
-  var sum = 0;
+  int sum = 0;
 
   final list = List<dynamic>.empty(growable: true);
 
@@ -10,7 +10,7 @@ void main() {
     for (int j = 0; j <= i; j++) {
       sum++;
       var separator = lines.isEmpty ? '' : '';
-      lines += sum.toString();
+      lines += '$sum';
       list.add(lines + separator);
     }
     print(list);
