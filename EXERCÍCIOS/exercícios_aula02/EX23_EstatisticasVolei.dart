@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class Jogadores{
+    
     String? nome;
     int saques;
     int saquesEfetivos;
@@ -22,10 +23,13 @@ class Jogadores{
       final porcentagemAtaques = (ataquesEfetivos*100)/ataques;
       return porcentagemAtaques.toStringAsFixed(1);
     }
+    
     Jogadores(this.nome,this.saques,this.saquesEfetivos,this.bloqueios,this.bloqueiosEfetivos,this.ataques,this.ataquesEfetivos);
-  @override
-  String toString(){
-    return 'Jogador: $nome\nSaque: $saquesEfetivos/$saques (${porcentagemSaques()}%)\nBloqueio: $bloqueiosEfetivos/$bloqueios (${porcentagemBloqueios()}%\nAtaque: $ataquesEfetivos/$ataques (${porcentagemAtaques()}%)';
+    
+    
+    @override
+    String toString(){
+      return 'Jogador: $nome\nSaque: $saquesEfetivos/$saques (${porcentagemSaques()}%)\nBloqueio: $bloqueiosEfetivos/$bloqueios (${porcentagemBloqueios()}%\nAtaque: $ataquesEfetivos/$ataques (${porcentagemAtaques()}%)';
   }
   }
 void main(){
