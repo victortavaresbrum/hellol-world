@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/theme.dart';
-
+import 'theme.dart';
 import 'display.dart';
 import 'number_button.dart';
 import 'operador_button.dart';
