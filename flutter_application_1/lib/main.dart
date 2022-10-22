@@ -1,241 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/theme.dart';
 
-import 'display.dart';
-import 'number_button.dart';
-import 'operador_button.dart';
-
-const String appName = 'Calculadora Simples';
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeMode currentThemeMode = ThemeMode.light;
-
-  void toggleThemeMode() {
-    setState(() {
-      currentThemeMode = currentThemeMode == ThemeMode.light
-          ? ThemeMode.dark
-          : ThemeMode.light;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appName,
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      debugShowMaterialGrid: false,
-      themeMode: currentThemeMode,
-      theme: CalculatorTheme.light,
-      darkTheme: CalculatorTheme.dark,
-      home: Calculator(onThemeModePressed: toggleThemeMode),
+      home: Scaffold(
+          backgroundColor: Color.fromARGB(255, 34, 34, 34),
+          body: Center(
+            child: NFTCard(),
+          )),
     );
   }
 }
 
-class Calculator extends StatefulWidget {
-  const Calculator({super.key, required this.onThemeModePressed});
-
-  final VoidCallback onThemeModePressed;
-
-  @override
-  State<Calculator> createState() => _CalculatorState();
-}
-
-class _CalculatorState extends State<Calculator> {
-  static const operadores = ['x', '-', '+'];
-
-  String display = '0';
-  String firstNumber = '';
-  String secondNumber = '';
-  String operador = '';
-  double progress = 0.0;
-  bool disableOperadorButton = false;
-
-  void insert(String char) {
-    if (char == '0') {
-      if (operador.isEmpty && firstNumber.isEmpty) return;
-      if (operador.isNotEmpty && secondNumber.isEmpty) return;
-    }
-
-    if (operadores.contains(char)) {
-      if (firstNumber.isEmpty) {
-        firstNumber = '0';
-      }
-
-      operador = char;
-    } else {
-      if (operador.isEmpty) {
-        firstNumber += char;
-      } else {
-        secondNumber += char;
-      }
-    }
-    setState(() {
-      if (operador.isEmpty) {
-        display = firstNumber;
-        progress = 0.33;
-      } else {
-        if (secondNumber.isEmpty) {
-          display = '$firstNumber $operador';
-          progress = 0.66;
-        } else {
-          display = '$firstNumber $operador $secondNumber';
-          progress = 1.0;
-          disableOperadorButton = true;
-        }
-      }
-    });
-  }
-
-  void clear() {
-    firstNumber = '';
-    operador = '';
-    secondNumber = '';
-    setState(() {
-      display = '0';
-      progress = 0;
-      disableOperadorButton = false;
-    });
-  }
-
-  void calculate() {
-    int calculater = 0;
-    int number1 = int.parse(firstNumber);
-    int number2 = int.parse(secondNumber);
-
-    switch (operador) {
-      case 'x':
-        calculater = number1 * number2;
-        break;
-      case '-':
-        calculater = number1 - number2;
-        break;
-      default:
-        calculater = number1 + number2;
-    }
-
-    firstNumber = calculater.toString();
-    secondNumber = '';
-    operador = '';
-    progress = 0.33;
-
-    setState(() {
-      display = calculater.toString();
-      disableOperadorButton = false;
-    });
-  }
+class NFTCard extends StatelessWidget {
+  const NFTCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text(
-            appName,
-          ),
-          actions: [
-            IconButton(
-                onPressed: widget.onThemeModePressed,
-                icon: Icon(
-                  theme.brightness == Brightness.light
-                    ? Icons.dark_mode
-                    : Icons.light_mode)),
-          ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 70.0),
-        child: FloatingActionButton(
-          onPressed: () {
-            clear();
-          },
-          child: const Text('C'),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Display(display: display),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(child: LinearProgressIndicator(value: progress)),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                NumberButton(number: '7', onNumberPressed: insert),
-                NumberButton(number: '8', onNumberPressed: insert),
-                NumberButton(number: '9', onNumberPressed: insert),
-                OperadorButton(
-                  disabled: disableOperadorButton,
-                  operador: 'x',
-                  onOperadorPressed: insert,
-                )
+    return Center(
+      child: Container(
+          width: 300,
+          height: 500,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Color.fromARGB(255, 241, 241, 241)),
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            elevation: 10,
+            color: Color.fromARGB(255, 1, 7, 66),
+            margin: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: const Image(
+                      image: NetworkImage(
+                        'https://s2.glbimg.com/EPCclUpcD8MwJ3gqsD5Nw1FsOgw=/0x0:595x599/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/c/8/vwEnBlQTOR5JMPV1qigw/captura-de-tela-2021-12-14-114837.jpg',
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Equilibrium #3429',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:8,top:10),
+                      child: Text(
+                        'Nossa coleção Equilibrium promove calma e balanço',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        
+                        const Text(
+                        '0.041 ETH',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w700),
+                      ),
+                        Row(
+                          
+                          children: [
+                            Icon(Icons.access_time_filled,color: Colors.white, size: 16),
+                            Padding(
+                              padding: const EdgeInsets.only(left:8.0),
+                              child: const Text(
+                              'restam 3 dias',
+                              style:
+                                  const TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.w700),
+                                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                    
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Divider(height: 2, color: Colors.white,),
+                ),
+                Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image(image: NetworkImage('https://media-exp1.licdn.com/dms/image/C4D03AQGoCgIHY7eshQ/profile-displayphoto-shrink_800_800/0/1658250127654?e=1671667200&v=beta&t=RC82SYlrhPQokfj7AXnnTm7bkZkkS8lVef0q-2Gty5Y',
+                      ),width: 50,height: 50,),
+                    ),
+                  ),
+                Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Criado por',
+                        style:
+                            const TextStyle(color: Color.fromARGB(255, 0, 119, 255), fontSize: 12,fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    Text(
+                        '  Victor Hugo Brum',
+                        style:
+                            const TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 12,fontWeight: FontWeight.w700),
+                      ),
+                ],
+                ),
               ],
             ),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                NumberButton(number: '4', onNumberPressed: insert),
-                NumberButton(number: '5', onNumberPressed: insert),
-                NumberButton(number: '6', onNumberPressed: insert),
-                OperadorButton(
-                  disabled: disableOperadorButton,
-                  operador: '-',
-                  onOperadorPressed: insert,
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                NumberButton(number: '1', onNumberPressed: insert),
-                NumberButton(number: '2', onNumberPressed: insert),
-                NumberButton(number: '3', onNumberPressed: insert),
-                OperadorButton(
-                  disabled: disableOperadorButton,
-                  operador: '+',
-                  onOperadorPressed: insert,
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                    flex: 3,
-                    child: OutlinedButton(
-                        onPressed: () => insert('0'),
-                        child:
-                            const Text('0', style: TextStyle(fontSize: 24)))),
-                Expanded(
-                    child: OutlinedButton(
-                        onPressed: () => calculate(),
-                        child: const Text('=', style: TextStyle(fontSize: 24))))
-              ],
-            ),
-          ),
-        ],
-      ),
+          )),
     );
   }
 }
