@@ -5,132 +5,107 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  List<Tab> listaCatioros = const [
+    Tab(
+      child: Text('Dachshund'),
+    ),
+    Tab(
+      child: Text('Golden'),
+    ),
+    Tab(
+      child: Text('Pug'),
+    ),
+    Tab(
+      child: Text('Spaniel'),
+    ),
+    Tab(
+      child: Text('Husky'),
+    ),
+    Tab(
+      child: Text('Border Collie'),
+    ),
+    Tab(
+      child: Text('Beagle'),
+    ),
+    Tab(
+      child: Text('Weimaraner'),
+    ),
+    Tab(
+      child: Text('Dalmata'),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: Color.fromARGB(255, 34, 34, 34),
-          body: Center(
-            child: NFTCard(),
-          )),
-    );
-  }
-}
-
-class NFTCard extends StatelessWidget {
-  const NFTCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          width: 300,
-          height: 500,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Color.fromARGB(255, 241, 241, 241)),
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            elevation: 10,
-            color: Color.fromARGB(255, 1, 7, 66),
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: const Image(
-                      image: NetworkImage(
-                        'https://s2.glbimg.com/EPCclUpcD8MwJ3gqsD5Nw1FsOgw=/0x0:595x599/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/c/8/vwEnBlQTOR5JMPV1qigw/captura-de-tela-2021-12-14-114837.jpg',
-                      ),
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Equilibrium #3429',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:8,top:10),
-                      child: Text(
-                        'Nossa coleção Equilibrium promove calma e balanço',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        
-                        const Text(
-                        '0.041 ETH',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w700),
-                      ),
-                        Row(
-                          
-                          children: [
-                            Icon(Icons.access_time_filled,color: Colors.white, size: 16),
-                            Padding(
-                              padding: const EdgeInsets.only(left:8.0),
-                              child: const Text(
-                              'restam 3 dias',
-                              style:
-                                  const TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.w700),
-                                                  ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
-                    
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Divider(height: 2, color: Colors.white,),
-                ),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image(image: NetworkImage('https://media-exp1.licdn.com/dms/image/C4D03AQGoCgIHY7eshQ/profile-displayphoto-shrink_800_800/0/1658250127654?e=1671667200&v=beta&t=RC82SYlrhPQokfj7AXnnTm7bkZkkS8lVef0q-2Gty5Y',
-                      ),width: 50,height: 50,),
-                    ),
-                  ),
-                Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Criado por',
-                        style:
-                            const TextStyle(color: Color.fromARGB(255, 0, 119, 255), fontSize: 12,fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Text(
-                        '  Victor Hugo Brum',
-                        style:
-                            const TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 12,fontWeight: FontWeight.w700),
-                      ),
-                ],
-                ),
-              ],
+    return DefaultTabController(
+      length: listaCatioros.length,
+      child: MaterialApp(
+        home: Scaffold(drawer: Drawer(
+          child: Column(
+            children: [
+              DrawerHeader(child: Center(child: Text('Catioros App',style: TextStyle(fontSize: 24),))),
+              ListTile(onTap: (){},
+                leading: Icon(Icons.donut_large),
+                title: Text('Cachorrinhos'),
+              ),
+              ListTile(onTap: (){},
+                leading: Icon(Icons.donut_large),
+                title: Text('Cachorrinhos'),
+              ),
+              ListTile(onTap: (){},
+                leading: Icon(Icons.donut_large),
+                title: Text('Cachorrinhos'),
+              ),
+            ],
+          )
+        ),
+          appBar: 
+          AppBar(
+            titleSpacing: 20,
+            title: Text('Catioros',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w900)),
+            centerTitle: true,
+            backgroundColor: Colors.deepPurpleAccent,
+            bottom: TabBar(isScrollable: true, tabs: listaCatioros),
+          ),
+          body: TabBarView(children: [
+            SizedBox(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Image.network(
+                  'https://t2.uc.ltmcdn.com/pt/posts/6/0/4/como_cuidar_de_um_dachshund_19406_orig.jpg',fit: BoxFit.cover)
             ),
-          )),
+            SizedBox(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Image.network('https://img.olx.com.br/images/47/478223081382961.jpg', fit:BoxFit.cover),
+            ),
+            Center(
+              child: Image.network('https://i.pinimg.com/originals/5c/ca/10/5cca10cb7fb09ed869d9c33255ddd0ed.jpg'),
+            ),
+            SizedBox(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRngc78nxUGS1Z9iyNF3pL3CFZe6NcKjST0KA&usqp=CAU',fit: BoxFit.cover),
+            ),
+            Center(
+              child: Image.network('https://i0.wp.com/www.portaldodog.com.br/cachorros/wp-content/uploads/2021/04/pexels-photo-3478875.jpeg?resize=1000%2C667&ssl=1'),),
+            Center(
+              child: Image.network('https://img.olx.com.br/images/84/849270939377408.jpg'),
+            ),
+            Center(
+              child: Image.network('https://static1.patasdacasa.com.br/articles/1/52/51/@/21770-a-raca-beagle-e-animada-e-traz-diversao-articles_media_mobile-3.jpg'),
+            ),
+            Center(
+              child: Image.network('https://http2.mlstatic.com/D_NQ_NP_607433-MLB51059048776_082022-W.jpg'),
+            ),
+            Center(
+              child: Image.network('https://cdn.los-animales.org/fotos/3726832_1015352-lindos-filhotes-de-dalmata.jpg'),
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }
