@@ -69,41 +69,40 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.deepPurpleAccent,
             bottom: TabBar(isScrollable: true, tabs: listaCatioros),
           ),
-          body: TabBarView(children: [
-            SizedBox(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              child: Image.network(
-                  'https://t2.uc.ltmcdn.com/pt/posts/6/0/4/como_cuidar_de_um_dachshund_19406_orig.jpg',fit: BoxFit.cover)
+          body: Container(
+            decoration: BoxDecoration(
+              //simage: DecorationImage()
             ),
-            SizedBox(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              child: Image.network('https://img.olx.com.br/images/47/478223081382961.jpg', fit:BoxFit.cover),
-            ),
-            Center(
-              child: Image.network('https://i.pinimg.com/originals/5c/ca/10/5cca10cb7fb09ed869d9c33255ddd0ed.jpg'),
-            ),
-            SizedBox(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRngc78nxUGS1Z9iyNF3pL3CFZe6NcKjST0KA&usqp=CAU',fit: BoxFit.cover),
-            ),
-            Center(
-              child: Image.network('https://i0.wp.com/www.portaldodog.com.br/cachorros/wp-content/uploads/2021/04/pexels-photo-3478875.jpeg?resize=1000%2C667&ssl=1'),),
-            Center(
-              child: Image.network('https://img.olx.com.br/images/84/849270939377408.jpg'),
-            ),
-            Center(
-              child: Image.network('https://static1.patasdacasa.com.br/articles/1/52/51/@/21770-a-raca-beagle-e-animada-e-traz-diversao-articles_media_mobile-3.jpg'),
-            ),
-            Center(
-              child: Image.network('https://http2.mlstatic.com/D_NQ_NP_607433-MLB51059048776_082022-W.jpg'),
-            ),
-            Center(
-              child: Image.network('https://cdn.los-animales.org/fotos/3726832_1015352-lindos-filhotes-de-dalmata.jpg'),
-            ),
-          ]),
+            child: TabBarView(children: [
+              Center(
+                child: Image.network(
+                    'https://t2.uc.ltmcdn.com/pt/posts/6/0/4/como_cuidar_de_um_dachshund_19406_orig.jpg'),
+              ),
+              Center(
+                child: Image.network('https://img.olx.com.br/images/47/478223081382961.jpg'),
+              ),
+              Center(
+                child: Image.network('https://i.pinimg.com/originals/5c/ca/10/5cca10cb7fb09ed869d9c33255ddd0ed.jpg'),
+              ),
+              Center(
+                child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRngc78nxUGS1Z9iyNF3pL3CFZe6NcKjST0KA&usqp=CAU',fit: BoxFit.fill,height: 700,),
+              ),
+              Center(
+                child: Image.network('https://i0.wp.com/www.portaldodog.com.br/cachorros/wp-content/uploads/2021/04/pexels-photo-3478875.jpeg?resize=1000%2C667&ssl=1'),),
+              Center(
+                child: Image.network('https://img.olx.com.br/images/84/849270939377408.jpg'),
+              ),
+              Center(
+                child: Image.network('https://static1.patasdacasa.com.br/articles/1/52/51/@/21770-a-raca-beagle-e-animada-e-traz-diversao-articles_media_mobile-3.jpg'),
+              ),
+              Center(
+                child: Image.network('https://http2.mlstatic.com/D_NQ_NP_607433-MLB51059048776_082022-W.jpg'),
+              ),
+              Center(
+                child: Image.network('https://cdn.los-animales.org/fotos/3726832_1015352-lindos-filhotes-de-dalmata.jpg'),
+              ),
+            ]),
+          ),
         ),
       ),
     );
