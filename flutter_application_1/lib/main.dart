@@ -1,110 +1,105 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const Hostel());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class Hostel extends StatefulWidget {
+  const Hostel({super.key});
 
-  List<Tab> listaCatioros = const [
-    Tab(
-      child: Text('Dachshund'),
-    ),
-    Tab(
-      child: Text('Golden'),
-    ),
-    Tab(
-      child: Text('Pug'),
-    ),
-    Tab(
-      child: Text('Spaniel'),
-    ),
-    Tab(
-      child: Text('Husky'),
-    ),
-    Tab(
-      child: Text('Border Collie'),
-    ),
-    Tab(
-      child: Text('Beagle'),
-    ),
-    Tab(
-      child: Text('Weimaraner'),
-    ),
-    Tab(
-      child: Text('Dalmata'),
-    ),
-  ];
+  @override
+  State<Hostel> createState() => _HostelState();
+}
+
+class _HostelState extends State<Hostel> {
+  Color cor1 = Colors.red.shade300;
+  Color cor2 = Colors.white;
+  Color cor3 = Colors.red.shade500;
+
+  List selecionados = [];
+  List contem = [];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: listaCatioros.length,
-      child: MaterialApp(
-        home: Scaffold(drawer: Drawer(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          leading: Image.network(
+            'https://cdn0.iconfinder.com/data/icons/picons-social/57/68-airbnb-512.png',
+            width: 30,
+            height: 10,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.red.shade400,
+          title: const Text('Airbnb'),
+          centerTitle: true,
+        ),
+        body: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
           child: Column(
             children: [
-              DrawerHeader(child: Center(child: Text('Catioros App',style: TextStyle(fontSize: 24),))),
-              ListTile(onTap: (){},
-                leading: Icon(Icons.donut_large),
-                title: Text('Cachorrinhos'),
+              const SizedBox(
+                height: 25,
               ),
-              ListTile(onTap: (){},
-                leading: Icon(Icons.donut_large),
-                title: Text('Cachorrinhos'),
+              const Text('Selecione as datas da sua reserva',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              const SizedBox(
+                height: 20,
               ),
-              ListTile(onTap: (){},
-                leading: Icon(Icons.donut_large),
-                title: Text('Cachorrinhos'),
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 7,
+                mainAxisSpacing: 3,
+                crossAxisSpacing: 3,
+                childAspectRatio: 1.35,
+                children: List.generate(30, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index == setSelecionado(selecionados, index)
+                            ? selecionados.remove(index) // Remove a seleção
+                            : selecionados.add(index);
+
+                          
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: setSelecionado(selecionados, index) == index ? cor3 : cor1,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12.withOpacity(0.5),
+                              spreadRadius: 0.1,
+                              blurRadius: 5,
+                            )
+                          ]),
+                      child: Text('${index + 1}',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  );
+                }),
               ),
+              const SizedBox(height: 20,),
+              const Text('Abril 2022',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)
             ],
-          )
-        ),
-          appBar: 
-          AppBar(
-            titleSpacing: 20,
-            title: Text('Catioros',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w900)),
-            centerTitle: true,
-            backgroundColor: Colors.deepPurpleAccent,
-            bottom: TabBar(isScrollable: true, tabs: listaCatioros),
-          ),
-          body: Container(
-            decoration: BoxDecoration(
-              //simage: DecorationImage()
-            ),
-            child: TabBarView(children: [
-              Center(
-                child: Image.network(
-                    'https://t2.uc.ltmcdn.com/pt/posts/6/0/4/como_cuidar_de_um_dachshund_19406_orig.jpg'),
-              ),
-              Center(
-                child: Image.network('https://img.olx.com.br/images/47/478223081382961.jpg'),
-              ),
-              Center(
-                child: Image.network('https://i.pinimg.com/originals/5c/ca/10/5cca10cb7fb09ed869d9c33255ddd0ed.jpg'),
-              ),
-              Center(
-                child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRngc78nxUGS1Z9iyNF3pL3CFZe6NcKjST0KA&usqp=CAU',fit: BoxFit.fill,height: 700,),
-              ),
-              Center(
-                child: Image.network('https://i0.wp.com/www.portaldodog.com.br/cachorros/wp-content/uploads/2021/04/pexels-photo-3478875.jpeg?resize=1000%2C667&ssl=1'),),
-              Center(
-                child: Image.network('https://img.olx.com.br/images/84/849270939377408.jpg'),
-              ),
-              Center(
-                child: Image.network('https://static1.patasdacasa.com.br/articles/1/52/51/@/21770-a-raca-beagle-e-animada-e-traz-diversao-articles_media_mobile-3.jpg'),
-              ),
-              Center(
-                child: Image.network('https://http2.mlstatic.com/D_NQ_NP_607433-MLB51059048776_082022-W.jpg'),
-              ),
-              Center(
-                child: Image.network('https://cdn.los-animales.org/fotos/3726832_1015352-lindos-filhotes-de-dalmata.jpg'),
-              ),
-            ]),
+            
           ),
         ),
       ),
     );
+  }
+
+  int setSelecionado(List selecionados, int index){
+
+    //Se selecionado novamente o dia ele vai 'zerar' o index;
+    return  selecionados.contains(index) ? index : -1;
+    
   }
 }
