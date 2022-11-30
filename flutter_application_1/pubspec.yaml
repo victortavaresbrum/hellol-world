@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_polyline_points: ^1.0.0
   flutter_svg: ^1.1.0
+  mask_text_input_formatter: ^2.1.0
 
 dev_dependencies:
   flutter_test:
