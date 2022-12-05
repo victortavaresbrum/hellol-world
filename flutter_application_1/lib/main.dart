@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -14,88 +15,151 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int index = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  TextEditingController _controller = TextEditingController();
+  PageController _controller = PageController();
 
-  int randomInt = 0;
+  int pageIndex = 0;
 
-  late final myFocusNode = FocusNode();
+  PageController pageController = PageController(initialPage: 0);
 
-  FocusNode campo1 = FocusNode();
-  FocusNode campo2 = FocusNode();
-  FocusNode campo3 = FocusNode();
-  FocusNode campo4 = FocusNode();
-  FocusNode campo5 = FocusNode();
+  Duration duration = Duration();
+
+  Timer? timer;
+
+  // Duration seconds = Duration(seconds: duration.inSeconds);
+
+  void pageBomb() {
+    setState(
+      () {
+        int initialTimeBomb = Random().nextInt(4) + 1;
+        const addSeconds = 1;
+        int seconds = initialTimeBomb - addSeconds;
+        if (seconds == 0) {
+          pageController.animateToPage(2,
+              duration: const Duration(milliseconds: 300), curve: Curves.ease);
+          timer?.cancel();
+        }
+        print(seconds);
+      },
+    );
+  }
+
+  void timerBomb() {
+    setState(() {
+      timer = Timer.periodic(Duration(seconds: 1), (_) => pageBomb());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Focus Random',
-            style: TextStyle(fontSize: 24),
-          ),
-          backgroundColor: Colors.green.shade800,
-          centerTitle: true,
-        ),
-        body: SizedBox.expand(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 24,
+        body: PageView(
+            // physics: const NeverScrollableScrollPhysics(),
+            controller: pageController,
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Corra da bomba',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size(150, 40)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        pageIndex++;
+                        setState(() {
+                          pageController.animateToPage(1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease);
+                        });
+                        timerBomb();
+                      },
+                      child: const Text(
+                        'Iniciar',
+                        style: TextStyle(),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Sorteado: $randomInt',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.green.shade900),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Image.network(
+                        'https://i.pinimg.com/originals/97/00/ff/9700ff5255003108cbb1c7b49e666637.gif'),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const Text(
+                    'Passe a bomba',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Você perdeu!!!',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Image.network(
+                        'https://media.tenor.com/igZCc-gVpjsAAAAj/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2.gif'),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton(
+                      child: const Text('Voltar'),
+                      onPressed: () {
+                        setState(() {
+                          pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease);
+                        });
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size(150, 40)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextField(
-                  focusNode: campo1,
-                ),
-                TextField(focusNode: campo2),
-                TextField(focusNode: campo3),
-                TextField(focusNode: campo4),
-                TextField(focusNode: campo5),
-                const SizedBox(
-                  height: 24,
-                ),
-                SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                Colors.green.shade900)),
-                        onPressed: () {
-                          setState(() {
-                            randomInt = Random().nextInt(5) + 1;
-                          });
-                          if (randomInt == 1) {
-                            FocusScope.of(context).requestFocus(campo1);
-                          } else if (randomInt == 2) {
-                            FocusScope.of(context).requestFocus(campo2);
-                          } else if (randomInt == 3) {
-                            FocusScope.of(context).requestFocus(campo3);
-                          } else if (randomInt == 4) {
-                            FocusScope.of(context).requestFocus(campo4);
-                          } else if (randomInt == 5) {
-                            FocusScope.of(context).requestFocus(campo5);
-                          }
-                        },
-                        child: const Text('Focus Random')))
-              ],
-            ),
-          ),
-        ),
+              )
+            ]),
       ),
     );
   }
