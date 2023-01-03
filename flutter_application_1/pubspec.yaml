@@ -39,6 +39,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   flutter_svg: ^1.1.0
   mask_text_input_formatter: ^2.1.0
+  dio: ^4.0.6
   
 
 dev_dependencies:
